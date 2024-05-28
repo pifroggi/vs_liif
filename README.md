@@ -24,7 +24,7 @@
 
 
 # AI resizing for Vapoursynth using [LIIF](https://github.com/yinboc/liif) 
-Up- or downscaling to arbitrary resolutions and aspect ratios. Can for example be used to go from 720x480 to 720x540, or to downscale without resizing artifacts like ringing or blurriness.
+Up- or downscaling to arbitrary resolutions and aspect ratios. For example to go from 720x480 to 720x540, or to remove small black borders and stretch, or to downscale without resizing artifacts like ringing or blurriness.  
 For upscaling likely not as good as dedicated upscaling models.
 
 ## Requirements
