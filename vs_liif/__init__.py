@@ -34,7 +34,8 @@ def resize(
         return array_to_frame(output, f[1].copy())
 
     new_clip = clip.std.BlankClip(width=width, height=height)
-    return new_clip.std.ModifyFrame(clips=[clip, new_clip], selector=liif_resize_frame)
+    new_clip = new_clip.std.ModifyFrame(clips=[clip, new_clip], selector=liif_resize_frame)
+    return new_clip.std.CopyFrameProps(prop_src=clip)
 
 def frame_to_array(frame: vs.VideoFrame) -> np.ndarray:
     array = np.stack([np.asarray(frame[plane]) for plane in range(frame.format.num_planes)])
