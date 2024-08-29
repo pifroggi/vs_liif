@@ -25,7 +25,6 @@
 
 # AI resizing for Vapoursynth using [LIIF](https://github.com/yinboc/liif) 
 Up- or downscaling to arbitrary resolutions and aspect ratios without ringing or blurriness. For example to go from 720x480 to 720x540, or to remove small black borders and stretch, or to downscale without resizing artifacts.  
-For upscaling likely not as good as dedicated upscaling models.
 For large upscaling factors decidacted upscaling models are likely better.
 
 
@@ -55,7 +54,7 @@ Possible values are "cuda" to use with an Nvidia GPU, or "cpu". This will be ext
 
 <br />
 
-## Tips
+## Tips & Troubleshooting
 With large differences between input and output resolution, the liif model sometimes exhibits a small color shift. If you would like to undo this shift, try this: https://github.com/pifroggi/vs_colorfix
 
 ## Benchmarks
