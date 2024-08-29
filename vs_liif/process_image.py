@@ -1,12 +1,9 @@
 import os.path as osp
 import numpy as np
-import cv2
 import torch
-from torchvision import transforms
 from .models.liif import LIIF
 from .models import models as models
 from . import utils
-
 
 def get_model(device='cpu'):
     model_name = 'models/edsr-baseline-liif.pth'
