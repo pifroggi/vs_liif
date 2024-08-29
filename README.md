@@ -28,28 +28,28 @@ Up- or downscaling to arbitrary resolutions and aspect ratios without ringing or
 For upscaling likely not as good as dedicated upscaling models.
 
 ## Requirements
-* pip install numpy
-* pip install opencv-python
-* [pytorch](https://pytorch.org/) 
+* [pytorch](https://pytorch.org/)
+* `pip install opencv-python`
+* `pip install numpy`
 
 ## Setup
-Drop the entire "vs_liif" folder to where you typically load scripts from.
+Put the entire "vs_liif" folder into your scripts folder, or where you typically load scripts from.
 
 ## Usage
 
     import vs_liif
     clip = vs_liif.resize(clip, width=720, height=540, device="cuda")
 
-__*clip*__  
+__*`clip`*__  
 Input clip must be in RGBS format.
 
-__*width*__  
+__*`width`*__  
 Output width in pixel.
 
-__*height*__  
+__*`height`*__  
 Output height in pixel.
 
-__*device*__  
+__*`device`*__  
 Possible values are "cuda" to use with an Nvidia GPU, or "cpu". This will be extremely slow on CPU.
 
 <br />
