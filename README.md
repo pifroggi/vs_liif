@@ -33,7 +33,8 @@ For large upscaling factors dedicated upscaling models are likely better.
 * `pip install numpy`
 
 ## Setup
-Put the entire "vs_liif" folder into your scripts folder, or where you typically load scripts from.
+Put the entire `vs_liif` folder into your vapoursynth scripts folder.  
+Or install via pip: `pip install git+https://github.com/pifroggi/vs_liif.git`
 
 ## Usage
 
