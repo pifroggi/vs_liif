@@ -7,6 +7,8 @@ def resize(
     clip: vs.VideoNode,
     width: int = 256,
     height: int = 256,
+    src_left: float = 0.0,
+    src_top: float = 0.0,
     device: str = 'cuda',
 ) -> vs.VideoNode:
 
@@ -26,7 +28,7 @@ def resize(
         img = torch.from_numpy(img[0]).to(device)
 
         with torch.no_grad():
-            output = process_image.process_frame(model, img, (height, width), device=device)
+            output = process_image.process_frame(model, img, (height, width), src_left=src_left, src_top=src_top, device=device)
 
         output = torch.unsqueeze(output, 0)
         output = output.cpu().detach().numpy()
