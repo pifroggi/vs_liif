@@ -39,7 +39,7 @@ Or install via pip: `pip install git+https://github.com/pifroggi/vs_liif.git`
 ## Usage
 
     import vs_liif
-    clip = vs_liif.resize(clip, width=720, height=540, device="cuda")
+    clip = vs_liif.resize(clip, width=720, height=540, src_left=0, src_top=0, device="cuda")
 
 __*`clip`*__  
 Input clip must be in RGBS format.
@@ -50,13 +50,13 @@ Output width in pixel.
 __*`height`*__  
 Output height in pixel.
 
-__*`src_left`*__  
-Left shift in pixel.
+__*`src_left`* (optional)__  
+Left shift in pixel. Allows for subpixel shift and negative shift.
 
-__*`src_top`*__  
-Top shift in pixel.
+__*`src_top`* (optional)__  
+Top shift in pixel. Allows for subpixel shift and negative shift.
 
-__*`device`*__  
+__*`device`* (optional)__  
 Possible values are "cuda" to use with an Nvidia GPU, or "cpu". This will be extremely slow on CPU.
 
 <br />
