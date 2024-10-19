@@ -39,7 +39,7 @@ Or install via pip: `pip install git+https://github.com/pifroggi/vs_liif.git`
 ## Usage
 
     import vs_liif
-    clip = vs_liif.resize(clip, width=720, height=540, src_left=0, src_top=0, device="cuda")
+    clip = vs_liif.resize(clip, width=720, height=540, src_left=0.0, src_top=0.0, device="cuda")
 
 __*`clip`*__  
 Input clip must be in RGBS format.
