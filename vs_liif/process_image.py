@@ -13,13 +13,13 @@ def get_model(device='cpu'):
     model = models.make(model, load_sd=True).to(device)
     return model
 
-def process_frame(model, img, resolution, device='cpu'):
+def process_frame(model, img, resolution, src_left=0.0, src_top=0.0, device='cpu'):
     img = img.to(device)
     if isinstance(resolution, str):
         h, w = map(int, resolution.split(','))
     else:
         h, w = resolution
-    coord = utils.make_coord((h, w)).to(device)
+    coord = utils.make_coord((h, w), src_left=src_left, src_top=src_top).to(device)
     cell = torch.ones_like(coord).to(device)
     cell[:, 0] *= 2 / h
     cell[:, 1] *= 2 / w

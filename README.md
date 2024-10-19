@@ -50,6 +50,12 @@ Output width in pixel.
 __*`height`*__  
 Output height in pixel.
 
+__*`src_left`*__  
+Left shift in pixel.
+
+__*`src_top`*__  
+Top shift in pixel.
+
 __*`device`*__  
 Possible values are "cuda" to use with an Nvidia GPU, or "cpu". This will be extremely slow on CPU.
 
