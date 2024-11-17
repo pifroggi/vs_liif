@@ -49,14 +49,16 @@ Output width and height in pixel.
 
 __*`src_width`, `src_height`* (optional)__  
 Selects a window from the source frame to resize starting from top left.  
-(Works identical to vapoursynths resizers.)
+(Works identical to vapoursynths built-in resizers.)
 
 __*`src_left`, `src_top`* (optional)__  
-Shifts the frame, or the window selected by src_width and src_height. Allows for subpixel and negative shift. Out of bound areas will be mirrored.  
-(Works identical to vapoursynths resizers.)
+Shifts the frame, or the window selected by src_width and src_height.  
+Allows for subpixel and negative shift. Out of bound areas will be mirrored.  
+(Works identical to vapoursynths built-in resizers.)
 
 __*`batch_size`* (optional)__  
-The amount of pixels to process at once. Lower numbers need less VRAM but may be slower. There seems to be a goldilock zone, which can get around 10% extra speed. To find it go up/down in 50000 steps.
+The amount of pixels to process at once. Lower numbers need less VRAM but may be slower.  
+There seems to be a goldilock zone, which can get around 15% extra speed. To find it go up/down in 50000 steps.
 
 __*`device`, `fp16`* (optional)__  
 Device values are "cuda" to use with an Nvidia GPU, or "cpu". This will be extremely slow on CPU.  
