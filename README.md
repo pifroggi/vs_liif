@@ -29,7 +29,7 @@ For large upscaling factors dedicated upscaling models are likely better.
 
 
 ## Requirements
-* [pytorch](https://pytorch.org/)
+* [pytorch](https://pytorch.org/) (with cuda)
 * `pip install numpy`
 
 ## Setup
@@ -39,46 +39,50 @@ Or install via pip: `pip install git+https://github.com/pifroggi/vs_liif.git`
 ## Usage
 
     import vs_liif
-    clip = vs_liif.resize(clip, width=720, height=540, src_left=0.0, src_top=0.0, device="cuda")
+    clip = vs_liif.resize(clip, width=720, height=540, src_left=0.0, src_top=0.0, src_width=None, src_height=None, batch_size=100000, device="cuda", fp16=True)
 
 __*`clip`*__  
 Input clip must be in RGBS format.
 
-__*`width`*__  
-Output width in pixel.
+__*`width`, `height`*__  
+Output width and height in pixel.
 
-__*`height`*__  
-Output height in pixel.
+__*`src_width`, `src_height`* (optional)__  
+Selects a window from the source frame to resize starting from top left.  
+(Works identical to vapoursynths resizers.)
 
-__*`src_left`* (optional)__  
-Left shift in pixel. Allows for subpixel shift and negative shift.
+__*`src_left`, `src_top`* (optional)__  
+Shifts the frame, or the window selected by src_width and src_height. Allows for subpixel and negative shift. Out of bound areas will be mirrored.  
+(Works identical to vapoursynths resizers.)
 
-__*`src_top`* (optional)__  
-Top shift in pixel. Allows for subpixel shift and negative shift.
+__*`batch_size`* (optional)__  
+The amount of pixels to process at once. Lower numbers need less VRAM but may be slower. There seems to be a goldilock zone, which can get around 10% extra speed. To find it go up/down in 50000 steps.
 
-__*`device`* (optional)__  
-Possible values are "cuda" to use with an Nvidia GPU, or "cpu". This will be extremely slow on CPU.
+__*`device`, `fp16`* (optional)__  
+Device values are "cuda" to use with an Nvidia GPU, or "cpu". This will be extremely slow on CPU.  
+Fp16 up to doubles speed and lowers VRAM usage if the GPU supports it. Does not work on CPU.
 
 <br />
 
 ## Tips & Troubleshooting
-With large differences between input and output resolution, the liif model sometimes exhibits a small color shift. If you would like to undo this shift, try this: https://github.com/pifroggi/vs_colorfix
+> [!TIP]
+> With large differences between input and output resolution, the liif model sometimes exhibits a small color shift. If you would like to undo this shift, try this: https://github.com/pifroggi/vs_colorfix
 
 ## Benchmarks
 
 | Hardware | Resolution  | Resize Factor   | Average FPS
 | -------- | ----------- | --------------- | -----------
 |          |             |                 |           
-| RTX 4090 | 720x480     | 0.25x (180x120) | ~30 fps
-| RTX 4090 | 720x480     | 0.5x (360x240)  | ~20 fps
-| RTX 4090 | 720x480     | to 720x540      | ~10 fps
-| RTX 4090 | 720x480     | 1.5x (1080x720) | ~5 fps
-| RTX 4090 | 720x480     | 2x (1440x960)   | ~3 fps
+| RTX 4090 | 720x480     | 0.25x (180x120) | ~45 fps
+| RTX 4090 | 720x480     | 0.5x (360x240)  | ~34 fps
+| RTX 4090 | 720x480     | to 720x540      | ~14 fps
+| RTX 4090 | 720x480     | 1.5x (1080x720) | ~8 fps
+| RTX 4090 | 720x480     | 2x (1440x960)   | ~5 fps
 |          |             |                 |           
-| RTX 4090 | 1440x1080   | 0.25x (360x270) | ~5 fps
-| RTX 4090 | 1440x1080   | 0.5x (720x540)  | ~3 fps
-| RTX 4090 | 1440x1080   | 1.5x (2160x1620)| ~0.8 fps
-| RTX 4090 | 1440x1080   | 2x (2880x2160)  | ~0.5 fps
+| RTX 4090 | 1440x1080   | 0.25x (360x270) | ~8 fps
+| RTX 4090 | 1440x1080   | 0.5x (720x540)  | ~6 fps
+| RTX 4090 | 1440x1080   | 1.5x (2160x1620)| ~1.5 fps
+| RTX 4090 | 1440x1080   | 2x (2880x2160)  | ~1 fps
 
 <br />
 
