@@ -52,7 +52,7 @@ Selects a window from the source frame to resize starting from top left.
 (Works identical to vapoursynths built-in resizers.)
 
 __*`src_left`, `src_top`* (optional)__  
-Shifts the frame, or the window selected by src_width and src_height.  
+Shifts the entire frame, or the window selected by src_width and src_height.  
 Allows for subpixel and negative shift. Out of bound areas will be mirrored.  
 (Works identical to vapoursynths built-in resizers.)
 
