@@ -24,9 +24,8 @@
 
 
 # AI resizing for Vapoursynth using [LIIF](https://github.com/yinboc/liif) 
-Up- or downscaling to arbitrary resolutions and aspect ratios without ringing or blurriness. For example to go from 720x480 to 720x540, or to remove small black borders and stretch, or to downscale without resizing artifacts.  
-For large upscaling factors dedicated upscaling models are likely better.
-
+Up- or downscaling to arbitrary resolutions and aspect ratios without blur or halos*. For example to go from 720x480 to 720x540, or to remove small black borders and stretch, or to downscale without detail loss. For large upscaling factors dedicated upscaling models are likely better.  
+*there have been reports of halos with some inputs and some resize factors
 
 ## Requirements
 * [pytorch](https://pytorch.org/) (with cuda)
@@ -57,7 +56,7 @@ Allows for subpixel and negative shift. Out of bound areas will be mirrored.
 (Works identical to vapoursynths built-in resizers.)
 
 __*`batch_size`* (optional)__  
-The amount of pixels to process at once. Lower numbers need less VRAM but may be slower.  
+The amount of pixels to process at once. Lower numbers can be used to limit VRAM usage, but may be slower.  
 There seems to be a goldilock zone, which can get around 15% extra speed. To find it go up/down in 50000 steps.
 
 __*`device`, `fp16`* (optional)__  
