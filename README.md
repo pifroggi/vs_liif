@@ -23,7 +23,7 @@
 
 
 
-# AI resizing for Vapoursynth using [LIIF](https://github.com/yinboc/liif) 
+# AI resizing for VapourSynth using [LIIF](https://github.com/yinboc/liif) 
 Up- or downscaling to arbitrary resolutions and aspect ratios without blur or halos*. For example to go from 720x480 to 720x540, or to remove small black borders and stretch, or to downscale without detail loss. For large upscaling factors dedicated upscaling models are likely better.  
 *there have been reports of halos with some inputs and some resize factors
 
@@ -89,4 +89,4 @@ Fp16 up to doubles speed and lowers VRAM usage if the GPU supports it. Does not 
 
 ## Acknowledgements 
 Orignal code from "Learning Continuous Image Representation with Local Implicit Image Function" or [LIIF](https://github.com/yinboc/liif).  
-Vapoursynth functions created with the help of [ViktorThink](https://github.com/ViktorThink). 
+VapourSynth functions created with the help of [ViktorThink](https://github.com/ViktorThink). 
