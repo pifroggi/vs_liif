@@ -24,21 +24,22 @@
 
 
 # AI resizing for VapourSynth using [LIIF](https://github.com/yinboc/liif) 
-Up- or downscaling to arbitrary resolutions and aspect ratios without blur or halos*. For example to go from 720x480 to 720x540, or to remove small black borders and stretch, or to downscale without detail loss. For large upscaling factors dedicated upscaling models are likely better.  
-*there have been reports of halos with some inputs and some resize factors
+Up- or downscaling to arbitrary resolutions and aspect ratios. For example to go from 720x480 to 720x540, or to remove small black borders and stretch, or to downscale without detail loss. For large upscaling factors dedicated upscaling models are usually better and faster. 
 
 ## Requirements
-* [pytorch](https://pytorch.org/) (with cuda)
+* [PyTorch with CUDA](https://pytorch.org/)
 * `pip install numpy`
 
 ## Setup
 Put the entire `vs_liif` folder into your vapoursynth scripts folder.  
-Or install via pip: `pip install git+https://github.com/pifroggi/vs_liif.git`
+Or install via pip: `pip install -U git+https://github.com/pifroggi/vs_liif.git`
 
 ## Usage
 
-    import vs_liif
-    clip = vs_liif.resize(clip, width=720, height=540, src_left=0.0, src_top=0.0, src_width=None, src_height=None, batch_size=100000, device="cuda", fp16=True)
+```python
+import vs_liif
+clip = vs_liif.resize(clip, width=720, height=540, src_left=0.0, src_top=0.0, src_width=None, src_height=None, batch_size=100000, device="cuda", fp16=True)
+```
 
 __*`clip`*__  
 Input clip must be in RGBS format.
@@ -56,18 +57,17 @@ Allows for subpixel and negative shift. Out of bound areas will be mirrored.
 (Works identical to vapoursynths built-in resizers.)
 
 __*`batch_size`* (optional)__  
-The amount of pixels to process at once. Lower numbers can be used to limit VRAM usage, but may be slower.  
-There seems to be a goldilock zone, which can get around 15% extra speed. To find it go up/down in 50000 steps.
+The amount of pixels to process at once. Lower limits VRAM usage, but may be slower.  
+There seems to be a goldilock zone for speed. To find it go up/down in 50000 steps.
 
 __*`device`, `fp16`* (optional)__  
-Device values are "cuda" to use with an Nvidia GPU, or "cpu". This will be extremely slow on CPU.  
+Device can be "cuda" to use with an Nvidia GPU, or "cpu". This will be extremely slow on CPU.  
 Fp16 up to doubles speed and lowers VRAM usage if the GPU supports it. Does not work on CPU.
 
-<br />
-
-## Tips & Troubleshooting
 > [!TIP]
-> With large differences between input and output resolution, the liif model sometimes exhibits a small color shift. If you would like to undo this shift, try this: https://github.com/pifroggi/vs_colorfix
+> With large differences between input and output resolution, the liif model sometimes exhibits a small color shift. If you would like to undo this shift, try: https://github.com/pifroggi/vs_colorfix
+
+<br />
 
 ## Benchmarks
 
