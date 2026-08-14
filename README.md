@@ -71,7 +71,7 @@ The backend used to run the LIIF model:
 * `cuda` GPU mode. Requires an Nvidia GPU *(fast)*.
 
 > [!TIP]
-> With large differences between input and output resolution, the model sometimes exhibits a small color shift. If you would like to fix this shift, try [vs_colorfix](https://github.com/pifroggi/vs_colorfix).
+> With large resize factors, the model sometimes exhibits a color shift. To fix this try [vs_colorfix](https://github.com/pifroggi/vs_colorfix).
 
 <br />
 
