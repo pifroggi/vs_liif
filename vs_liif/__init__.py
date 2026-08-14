@@ -5,8 +5,8 @@ import math
 
 def resize(
     clip: vs.VideoNode,
-    width: int = 720,
-    height: int = 540,
+    width: int = None,
+    height: int = None,
     src_left: float = 0.0,
     src_top: float = 0.0,
     src_width: float = None,
@@ -18,8 +18,8 @@ def resize(
 
     Args:
         clip: Input clip. Must be in RGB format.
-        width: Output width in pixels.
-        height: Output height in pixels.
+        width: Output width in pixels. Defaults to the input clip width.
+        height: Output height in pixels. Defaults to the input clip height.
         src_left: Shifts the entire frame horizontally, or the window selected by src_width and src_height. Allows subpixel and negative shifts.
         src_top: Shifts the entire frame vertically, or the window selected by src_width and src_height. Allows subpixel and negative shifts.
         src_width: Width of the source window to resize. Defaults to the input clip width.
@@ -31,9 +31,6 @@ def resize(
     """
     
     # checks
-    width = int(width)
-    height = int(height)
-
     if not isinstance(backend, str):
         raise TypeError('vs_liif.resize: Backend must be a string.')
     device = backend.lower()
@@ -67,10 +64,18 @@ def resize(
         raise TypeError('vs_liif.resize: Batch size must be an integer.')
     if batch_size < 1:
         raise ValueError('vs_liif.resize: Batch size must be at least 1.')
+    if width is None:
+        width = clip.width
+    if height is None:
+        height = clip.height
     if src_width is None:
         src_width = clip.width
     if src_height is None:
         src_height = clip.height
+
+    width = int(width)
+    height = int(height)
+
     if src_width <= 0:
         raise ValueError('vs_liif.resize: Active window must be positive and greater than 0. Check src_width.')
     if src_height <= 0:
