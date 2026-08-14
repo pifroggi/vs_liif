@@ -1,22 +1,38 @@
 [build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
 
 [project]
 name = "vs_liif"
-version = "1.1.0"
-description = "AI resizing to arbitrary resolutions in Vapoursynth using LIIF. Upscaling and downscaling."
+version = "1.2.0"
+description = "AI resizing for VapourSynth using LIIF. Upscaling and downscaling."
+readme = "README.md"
+requires-python = ">=3.12"
 authors = [{ name = "pifroggi" }]
-license = { text = "BSD-3-Clause" }
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
 
-dependencies = [
-	"torch",
-    "numpy"
+keywords = [
+	"vapoursynth",
+	"video",
+	"resize",
+	"resizing",
+	"liif",
+	"filtering"
 ]
 
-[tool.setuptools.package-data]
-vs_liif = ["models/*.pth"]
+classifiers = [
+	"Programming Language :: Python :: 3",
+	"Topic :: Multimedia :: Video",
+    "Environment :: GPU",
+]
+
+dependencies = [
+	"vapoursynth",
+	"numpy",
+]
 
 [project.urls]
-Home-page = "https://github.com/pifroggi/vs_liif"
+Homepage = "https://github.com/pifroggi/vs_liif"
 Repository = "https://github.com/pifroggi/vs_liif"
+Issues = "https://github.com/pifroggi/vs_liif/issues"
