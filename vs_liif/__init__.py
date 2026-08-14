@@ -20,8 +20,8 @@ def resize(
         clip: Input clip. Must be in RGB format.
         width: Output width in pixels.
         height: Output height in pixels.
-        src_left: Shifts the source window horizontally. Allows subpixel and negative shifts.
-        src_top: Shifts the source window vertically. Allows subpixel and negative shifts.
+        src_left: Shifts the entire frame horizontally, or the window selected by src_width and src_height. Allows subpixel and negative shifts.
+        src_top: Shifts the entire frame vertically, or the window selected by src_width and src_height. Allows subpixel and negative shifts.
         src_width: Width of the source window to resize. Defaults to the input clip width.
         src_height: Height of the source window to resize. Defaults to the input clip height.
         batch_size: Amount of pixels to process at once. Lower values reduce VRAM usage but may be slower.
