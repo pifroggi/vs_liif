@@ -26,64 +26,132 @@
 # AI resizing for VapourSynth using [LIIF](https://github.com/yinboc/liif) 
 Up- or downscaling to arbitrary resolutions and aspect ratios. For example to go from 720x480 to 720x540, or to remove small black borders and stretch, or to downscale with less detail loss. For large upscaling factors dedicated upscaling models are usually better and faster. 
 
-## Requirements
-* [PyTorch with CUDA](https://pytorch.org/)
-* `pip install numpy`
+<br />
 
-## Setup
-Put the entire `vs_liif` folder into your vapoursynth scripts folder.  
-Or install via pip: `pip install -U git+https://github.com/pifroggi/vs_liif.git`
+<p align="center">
+  <img src="https://raw.githubusercontent.com/pifroggi/vs_liif/refs/heads/main/README_img.png" width="600" />
+</p>
+
+## Installation
+
+```
+pip install -U vs_liif
+```
+* This package requires [PyTorch with CUDA](https://pytorch.org/get-started/locally/).
+
+<br />
 
 ## Usage
 
 ```python
 import vs_liif
-clip = vs_liif.resize(clip, width=720, height=540, src_left=0.0, src_top=0.0, src_width=None, src_height=None, batch_size=100000, device="cuda", fp16=True)
+clip = vs_liif.resize(clip, width=None, height=None, src_left=0.0, src_top=0.0, src_width=None, src_height=None, batch_size=100000, backend="cuda")
 ```
 
 __*`clip`*__  
-Input clip must be in RGBS format.
+Input clip must be in RGB format.
 
-__*`width`, `height`*__  
+__*`width`, `height`* (optional)__  
 Output width and height in pixel.
 
 __*`src_width`, `src_height`* (optional)__  
-Selects a window from the source frame to resize starting from top left.  
-(Works identical to vapoursynths built-in resizers.)
+Selects a window from the source frame to resize starting from top left. Works like vapoursynths built-in resizers.
 
 __*`src_left`, `src_top`* (optional)__  
 Shifts the entire frame, or the window selected by src_width and src_height.  
-Allows for subpixel and negative shift. Out of bound areas will be mirrored.  
-(Works identical to vapoursynths built-in resizers.)
+Allows for subpixel and negative shift. Works like vapoursynths built-in resizers.
 
 __*`batch_size`* (optional)__  
-The amount of pixels to process at once. Lower limits VRAM usage, but may be slower.  
+The amount of pixels to process at once. Lower reduces VRAM usage, but may be slower.  
 There seems to be a goldilock zone for speed. To find it go up/down in 50000 steps.
 
-__*`device`, `fp16`* (optional)__  
-Device can be "cuda" to use with an Nvidia GPU, or "cpu". This will be extremely slow on CPU.  
-Fp16 up to doubles speed and lowers VRAM usage if the GPU supports it. Does not work on CPU.
+__*`backend`* (optional)__  
+The backend used to run the LIIF model:
+* `cpu` CPU mode *(very slow)*.
+* `cuda` GPU mode. Requires an Nvidia GPU *(fast)*.
 
 > [!TIP]
-> With large differences between input and output resolution, the liif model sometimes exhibits a small color shift. If you would like to undo this shift, try: https://github.com/pifroggi/vs_colorfix
+> With large differences between input and output resolution, the model sometimes exhibits a small color shift. If you would like to fix this shift, try [vs_colorfix](https://github.com/pifroggi/vs_colorfix).
 
 <br />
 
 ## Benchmarks
+Benchmarks were done on a RTX 4090 GPU.
 
-| Hardware | Resolution  | Resize Factor   | Average FPS
-| -------- | ----------- | --------------- | -----------
-|          |             |                 |           
-| RTX 4090 | 720x480     | 0.25x (180x120) | ~45 fps
-| RTX 4090 | 720x480     | 0.5x (360x240)  | ~34 fps
-| RTX 4090 | 720x480     | to 720x540      | ~14 fps
-| RTX 4090 | 720x480     | 1.5x (1080x720) | ~8 fps
-| RTX 4090 | 720x480     | 2x (1440x960)   | ~5 fps
-|          |             |                 |           
-| RTX 4090 | 1440x1080   | 0.25x (360x270) | ~8 fps
-| RTX 4090 | 1440x1080   | 0.5x (720x540)  | ~6 fps
-| RTX 4090 | 1440x1080   | 1.5x (2160x1620)| ~1.5 fps
-| RTX 4090 | 1440x1080   | 2x (2880x2160)  | ~1 fps
+<table>
+  <tr>
+    <td valign="top">
+
+<table>
+  <thead>
+    <tr align="center">
+      <th colspan="2">720x480</th>
+    </tr>
+    <tr align="center">
+      <th>Resize Factor</th>
+      <th>Average FPS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr align="center">
+      <td>0.25x (180x120)</td>
+      <td>~45 fps</td>
+    </tr>
+    <tr align="center">
+      <td>0.5x (360x240)</td>
+      <td>~34 fps</td>
+    </tr>
+    <tr align="center">
+      <td>to 720x540</td>
+      <td>~14 fps</td>
+    </tr>
+    <tr align="center">
+      <td>1.5x (1080x720)</td>
+      <td>~8 fps</td>
+    </tr>
+    <tr align="center">
+      <td>2x (1440x960)</td>
+      <td>~5 fps</td>
+    </tr>
+  </tbody>
+</table>
+
+</td>
+<td valign="top">
+
+<table>
+  <thead>
+    <tr align="center">
+      <th colspan="2">1440x1080</th>
+    </tr>
+    <tr align="center">
+      <th>Resize Factor</th>
+      <th>Average FPS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr align="center">
+      <td>0.25x (360x270)</td>
+      <td>~8 fps</td>
+    </tr>
+    <tr align="center">
+      <td>0.5x (720x540)</td>
+      <td>~6 fps</td>
+    </tr>
+    <tr align="center">
+      <td>1.5x (2160x1620)</td>
+      <td>~1.5 fps</td>
+    </tr>
+    <tr align="center">
+      <td>2x (2880x2160)</td>
+      <td>~1 fps</td>
+    </tr>
+  </tbody>
+</table>
+
+</td>
+  </tr>
+</table>
 
 <br />
 
