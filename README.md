@@ -37,7 +37,7 @@ Up- or downscaling to arbitrary resolutions and aspect ratios. For example to go
 ```
 pip install -U vs_liif
 ```
-* This package requires [PyTorch with CUDA](https://pytorch.org/get-started/locally/).
+This package requires [PyTorch with CUDA](https://pytorch.org/get-started/locally/).
 
 <br />
 
